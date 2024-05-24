@@ -11,12 +11,12 @@ npm run check-format ||
 }
 
 
-# Check ESlint
-# npm run check-lint ||
-# {
-#     echo 'ESLint Check Failed. Make the required changes listed above, add changes and try commit again'
-#     false;
-# }
+#Check ESlint
+npm run check-lint ||
+{
+    echo 'ESLint Check Failed. Make the required changes listed above, add changes and try commit again'
+    false;
+}
 
 # Chacek tsconfig
 npm run check-types ||
@@ -31,4 +31,4 @@ npm run build ||
     false;
 }
 
-echo 'Success Commite'
+echo 'Success Commit'
