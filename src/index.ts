@@ -1,10 +1,25 @@
-import express, { Application, Response } from 'express'
+import express, { Application } from 'express'
+import { routes } from './routes'
+import { logger } from './utils/logger'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 
 const app: Application = express()
 const port: number = 4000
 
-app.use('/health', (res: Response) => {
-  return res.status(200).send({ status: 200 })
+// parse body request
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// cors access handler
+app.use(cors())
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  next()
 })
 
-app.listen(port, () => console.log(`Server is Listening on port ${port}`))
+routes(app)
+
+app.listen(port, () => logger.info(`Server is Listening on port ${port}`))
